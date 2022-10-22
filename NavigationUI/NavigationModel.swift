@@ -17,17 +17,11 @@ class NavigationModel: ObservableObject {
     }
 
     @Published var current: NavigationItem = .landing
-    @Published var isBack = false {
-        didSet {
-            print("isBack = \(isBack)")
-        }
-    }
-
-    @Published var page = 0
+    @Published var isBack = false
 
     var transitionManager: AnyTransition {
-        let insert = AnyTransition.modifier(active: InsertModifier(offset: 300, active: true, navigation: self),
-                                            identity: InsertModifier(offset: 300, active: false, navigation: self))
+        let insert = AnyTransition.modifier(active: InsertModifier(active: true, navigation: self),
+                                            identity: InsertModifier(active: false, navigation: self))
         let remove = AnyTransition.modifier(active: RemoveModifier(offset: 150, active: true, navigation: self),
                                             identity: RemoveModifier(offset: 150, active: false, navigation: self))
 
@@ -35,7 +29,7 @@ class NavigationModel: ObservableObject {
     }
 
     func close() {
-        withAnimation {
+        withAnimation(.easeInOut(duration: 0.35)) {
             isBack = true
             switch current {
             case .showMonitor:
@@ -47,21 +41,21 @@ class NavigationModel: ObservableObject {
     }
 
     func makeMeACamera() {
-        withAnimation {
+        withAnimation(.easeInOut(duration: 0.35)) {
             isBack = false
             current = .showCamera
         }
     }
 
     func showMonitorList() {
-        withAnimation {
+        withAnimation(.easeInOut(duration: 0.35)) {
             isBack = false
             current = .showMonitorList
         }
     }
 
     func showMonitor() {
-        withAnimation {
+        withAnimation(.easeInOut(duration: 0.35)) {
             isBack = false
             current = .showMonitor
         }

@@ -8,15 +8,13 @@
 import SwiftUI
 
 struct InsertModifier: ViewModifier & Animatable {
-    init(offset: CGFloat, active: Bool, navigation: NavigationModel) {
-        self.offset = offset
+    init(active: Bool, navigation: NavigationModel) {
         self.active = active
         progress = active ? 1 : 0
         self.navigation = navigation
     }
 
     var active: Bool
-    var offset: CGFloat = .zero
     var progress: CGFloat
     var navigation: NavigationModel
 
@@ -26,20 +24,26 @@ struct InsertModifier: ViewModifier & Animatable {
     }
 
     func body(content: Content) -> some View {
-        _ = print("InsertModifier progress: \(progress), active: \(active) ")
+        GeometryReader { proxy in
+            makeView(content: content, proxy: proxy)
+        }
+    }
+
+    func makeView(content: Content, proxy: GeometryProxy) -> some View {
+        let width = proxy.frame(in: .local).width
         var progressPrime = progress
         if !active {
             progressPrime = 1 - progress
         }
         if navigation.isBack {
-            return content.offset(x: -offset * progress, y: 0)
+            return content.offset(x: -width * progress, y: 0)
         } else {
             if active {
-                return content.offset(x: offset * progressPrime, y: 0)
+                return content.offset(x: width * progressPrime, y: 0)
             } else {
                 // new view coming in
-                print("InsertModifier offset: \(offset), progress: \(progress)")
-                return content.offset(x: offset * progress, y: 0)
+                print("InsertModifier offset: \(width), progress: \(progress)")
+                return content.offset(x: width * progress, y: 0)
             }
         }
     }
@@ -64,7 +68,6 @@ struct RemoveModifier: ViewModifier & Animatable {
     }
 
     func body(content: Content) -> some View {
-        _ = print("RemoveModifier progress: \(progress), active: \(active) ")
         if navigation.isBack {
             if active {
                 return content.offset(x: offset * progress, y: 0)

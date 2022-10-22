@@ -43,6 +43,7 @@ struct ContentView: View {
                 navigation.showMonitorList()
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
