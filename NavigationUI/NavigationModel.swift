@@ -24,46 +24,30 @@ class NavigationModel: ObservableObject {
     }
 
     @Published var page = 0
-//    var page: Int {
-//        switch current {
-//        case .landing:
-//            return 0
-//        case .showMonitorList:
-//            return 1
-//        case .showMonitor:
-//            return 2
-//        case .showCamera:
-//            return 3
-//        }
-//    }
+
+    var transitionManager: AnyTransition {
+        let insert = AnyTransition.modifier(active: InsertModifier(offset: 300, active: true, navigation: self),
+                                            identity: InsertModifier(offset: 300, active: false, navigation: self))
+        let remove = AnyTransition.modifier(active: RemoveModifier(offset: 150, active: true, navigation: self),
+                                            identity: RemoveModifier(offset: 150, active: false, navigation: self))
+
+        return AnyTransition.asymmetric(insertion: insert, removal: remove)
+    }
 
     func close() {
         withAnimation {
             isBack = true
             switch current {
             case .showMonitor:
-                page = 1
                 current = .showMonitorList
             default:
-                page = 0
                 current = .landing
             }
         }
     }
 
     func makeMeACamera() {
-//        withAnimation {
-//            page = 0
-//            isBack = false
-//            current = .showCamera
-//        }
-
-        withTransaction(Transaction(animation: .easeIn(duration: 2))
-//            Transition.asymmetric(
-//            insertion: .move(edge: isBack ? .leading : .trailing),
-//            removal: .move(edge: isBack ? .trailing : .leading))
-        ) {
-            page = 0
+        withAnimation {
             isBack = false
             current = .showCamera
         }
@@ -71,7 +55,6 @@ class NavigationModel: ObservableObject {
 
     func showMonitorList() {
         withAnimation {
-            page = 1
             isBack = false
             current = .showMonitorList
         }
@@ -79,7 +62,6 @@ class NavigationModel: ObservableObject {
 
     func showMonitor() {
         withAnimation {
-            page = 2
             isBack = false
             current = .showMonitor
         }

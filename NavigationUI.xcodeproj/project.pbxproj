@@ -15,6 +15,7 @@
 		C343B1C62901CE55003FD402 /* CameraScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C343B1C52901CE55003FD402 /* CameraScreen.swift */; };
 		C39844C82902E3C7009973F4 /* MonitorListScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39844C72902E3C7009973F4 /* MonitorListScreen.swift */; };
 		C39844CA2902E4FB009973F4 /* MonitorDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39844C92902E4FB009973F4 /* MonitorDetailScreen.swift */; };
+		C39844CC290468AE009973F4 /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C39844CB290468AE009973F4 /* ViewModifiers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		C343B1C52901CE55003FD402 /* CameraScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScreen.swift; sourceTree = "<group>"; };
 		C39844C72902E3C7009973F4 /* MonitorListScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorListScreen.swift; sourceTree = "<group>"; };
 		C39844C92902E4FB009973F4 /* MonitorDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorDetailScreen.swift; sourceTree = "<group>"; };
+		C39844CB290468AE009973F4 /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				C343B1C52901CE55003FD402 /* CameraScreen.swift */,
 				C39844C72902E3C7009973F4 /* MonitorListScreen.swift */,
 				C39844C92902E4FB009973F4 /* MonitorDetailScreen.swift */,
+				C39844CB290468AE009973F4 /* ViewModifiers.swift */,
 			);
 			path = NavigationUI;
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C343B1B82901CDE6003FD402 /* ContentView.swift in Sources */,
+				C39844CC290468AE009973F4 /* ViewModifiers.swift in Sources */,
 				C39844CA2902E4FB009973F4 /* MonitorDetailScreen.swift in Sources */,
 				C343B1B62901CDE6003FD402 /* NavigationUIApp.swift in Sources */,
 				C39844C82902E3C7009973F4 /* MonitorListScreen.swift in Sources */,
