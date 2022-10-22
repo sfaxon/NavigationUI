@@ -50,15 +50,13 @@ struct InsertModifier: ViewModifier & Animatable {
 }
 
 struct RemoveModifier: ViewModifier & Animatable {
-    init(offset: CGFloat, active: Bool, navigation: NavigationModel) {
-        self.offset = offset
+    init(active: Bool, navigation: NavigationModel) {
         self.active = active
         progress = active ? 1 : 0
         self.navigation = navigation
     }
 
     var active: Bool
-    var offset: CGFloat = .zero
     var progress: CGFloat
     var navigation: NavigationModel
 
@@ -68,19 +66,26 @@ struct RemoveModifier: ViewModifier & Animatable {
     }
 
     func body(content: Content) -> some View {
+        GeometryReader { proxy in
+            makeView(content: content, proxy: proxy)
+        }
+    }
+
+    func makeView(content: Content, proxy: GeometryProxy) -> some View {
+        let width = proxy.frame(in: .local).width
         if navigation.isBack {
             if active {
-                return content.offset(x: offset * progress, y: 0)
+                return content.offset(x: width * progress, y: 0)
             } else {
-                return content.offset(x: -offset * progress, y: 0)
+                return content.offset(x: -width * progress, y: 0)
             }
         } else {
             if active {
-                return content.offset(x: -offset * progress, y: 0)
+                return content.offset(x: -width * progress, y: 0)
             } else {
                 // new view coming in
-                print("RemoveModifier offset: \(offset), progress: \(progress)")
-                return content.offset(x: offset * progress, y: 0)
+                print("RemoveModifier width: \(width), progress: \(progress)")
+                return content.offset(x: width * progress, y: 0)
             }
         }
     }

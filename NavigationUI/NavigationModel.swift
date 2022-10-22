@@ -22,8 +22,8 @@ class NavigationModel: ObservableObject {
     var transitionManager: AnyTransition {
         let insert = AnyTransition.modifier(active: InsertModifier(active: true, navigation: self),
                                             identity: InsertModifier(active: false, navigation: self))
-        let remove = AnyTransition.modifier(active: RemoveModifier(offset: 150, active: true, navigation: self),
-                                            identity: RemoveModifier(offset: 150, active: false, navigation: self))
+        let remove = AnyTransition.modifier(active: RemoveModifier(active: true, navigation: self),
+                                            identity: RemoveModifier(active: false, navigation: self))
 
         return AnyTransition.asymmetric(insertion: insert, removal: remove)
     }
