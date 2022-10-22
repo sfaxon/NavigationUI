@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+// Each of these ghave a width that's a constant.
+// This is an approximation of what the native UINavigationViewController does.
+// As a new screen comes in, it animates the full width of the screen, but the one
+// leaving only moves back about 1/3 of the view width.
+
 struct InsertModifier: ViewModifier & Animatable {
     init(active: Bool, navigation: NavigationModel) {
         self.active = active
@@ -30,20 +35,21 @@ struct InsertModifier: ViewModifier & Animatable {
     }
 
     func makeView(content: Content, proxy: GeometryProxy) -> some View {
-        let width = proxy.frame(in: .local).width
-        var progressPrime = progress
-        if !active {
-            progressPrime = 1 - progress
-        }
+        let frameWidth = proxy.frame(in: .local).width
+        let width = frameWidth * 0.3
         if navigation.isBack {
-            return content.offset(x: -width * progress, y: 0)
+            if active {
+                // starting position when being inserted while going back
+                return content.offset(x: -width * progress, y: 0)
+            } else {
+                return content.offset(x: -frameWidth * progress, y: 0)
+            }
         } else {
             if active {
-                return content.offset(x: width * progressPrime, y: 0)
+                return content.offset(x: frameWidth * progress, y: 0)
             } else {
                 // new view coming in
-                print("InsertModifier offset: \(width), progress: \(progress)")
-                return content.offset(x: width * progress, y: 0)
+                return content.offset(x: frameWidth * progress, y: 0)
             }
         }
     }
@@ -72,10 +78,12 @@ struct RemoveModifier: ViewModifier & Animatable {
     }
 
     func makeView(content: Content, proxy: GeometryProxy) -> some View {
-        let width = proxy.frame(in: .local).width
+        let frameWidth = proxy.frame(in: .local).width
+        let width = frameWidth * 0.3
         if navigation.isBack {
             if active {
-                return content.offset(x: width * progress, y: 0)
+                // when being dismissed, how far off screen the view goes
+                return content.offset(x: frameWidth * progress, y: 0)
             } else {
                 return content.offset(x: -width * progress, y: 0)
             }
@@ -84,7 +92,6 @@ struct RemoveModifier: ViewModifier & Animatable {
                 return content.offset(x: -width * progress, y: 0)
             } else {
                 // new view coming in
-                print("RemoveModifier width: \(width), progress: \(progress)")
                 return content.offset(x: width * progress, y: 0)
             }
         }

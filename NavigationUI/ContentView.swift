@@ -16,12 +16,16 @@ struct ContentView: View {
                 switch navigation.current {
                 case .landing:
                     landingScreen
+                        .zIndex(0)
                 case .showCamera:
                     CameraScreen()
+                        .zIndex(1)
                 case .showMonitorList:
                     MonitorListScreen()
+                        .zIndex(2)
                 case .showMonitor:
                     MonitorDetailScreen()
+                        .zIndex(3)
                 }
             }
             .transition(navigation.transitionManager)
