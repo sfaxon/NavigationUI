@@ -14,9 +14,7 @@ struct CameraScreen: View {
         ZStack {
             VStack {
                 Button("back") {
-                    withAnimation {
-                        navigation.close()
-                    }
+                    navigation.close()
                 }
                 Text("CameraScreen")
             }

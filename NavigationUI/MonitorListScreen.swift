@@ -13,15 +13,11 @@ struct MonitorListScreen: View {
         ZStack {
             VStack {
                 Button("back") {
-                    withAnimation {
-                        navigation.close()
-                    }
+                    navigation.close()
                 }
                 Text("MonitorListScreen")
                 Button("detail") {
-                    withAnimation {
-                        navigation.showMonitor()
-                    }
+                    navigation.showMonitor()
                 }
             }
         }

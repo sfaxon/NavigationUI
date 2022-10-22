@@ -13,16 +13,9 @@ struct MonitorDetailScreen: View {
         ZStack {
             VStack {
                 Button("back") {
-                    withAnimation {
-                        navigation.close()
-                    }
+                    navigation.close()
                 }
                 Text("MonitorDetailScreen")
-                Button("detail") {
-                    withAnimation {
-                        navigation.showMonitor()
-                    }
-                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
